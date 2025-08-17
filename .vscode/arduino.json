@@ -4,6 +4,6 @@
     "output": "build",
     "postbuild": "python rename.py",
     "version": "1.0.1",
-    "project": "RUI3-Low-Power",
-    "sketch": "RUI3-LowPower-Example.ino"
+    "project": "RUI3-Low-Power-buoyfish-tracker",
+    "sketch": "buoyfish-tracker-rui3.ino"
 }

@@ -43,9 +43,9 @@
 		Serial.printf(__VA_ARGS__);      \
 		Serial.printf("\n");             \
 		if (tag)                         \
-			Serial.printf("[%s] ", tag); \
-		Serial.printf(__VA_ARGS__);      \
-		Serial.printf("\r\n");             \
+			Serial6.printf("[%s] ", tag); \
+		Serial6.printf(__VA_ARGS__);      \
+		Serial6.printf("\r\n");             \
 	} while (0);                         \
 	delay(100)
 #else

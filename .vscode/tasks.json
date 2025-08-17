@@ -1,0 +1,154 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Arduino: Compile",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "compile",
+                "--fqbn",
+                "rak_rui:nrf52:WisCoreRAK4631Board",
+                ".",
+                "--output-dir",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "Compile the Arduino firmware for RAK4631"
+        },
+        {
+            "label": "Arduino: Upload (detect port)",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "upload",
+                "--fqbn",
+                "rak_rui:nrf52:WisCoreRAK4631Board",
+                "--port",
+                "${input:serialPort}",
+                "."
+            ],
+            "group": "test",
+            "dependsOn": "Arduino: Compile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "Upload compiled firmware to RAK4631 via UART"
+        },
+        {
+            "label": "Arduino: Upload to /dev/cu.usbmodem14101",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "upload",
+                "--fqbn",
+                "rak_rui:nrf52:WisCoreRAK4631Board",
+                "--port",
+                "/dev/cu.usbmodem14101",
+                "."
+            ],
+            "group": "test",
+            "dependsOn": "Arduino: Compile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "Upload to common RAK4631 port"
+        },
+        {
+            "label": "List Serial Ports",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "board",
+                "list"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "List available serial ports and connected boards"
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "Clean build artifacts"
+        },
+        {
+            "label": "Serial Monitor",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "monitor",
+                "--port",
+                "${input:serialPort}",
+                "--config",
+                "baudrate=115200"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "detail": "Open serial monitor at 115200 baud"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "serialPort",
+            "description": "Select serial port",
+            "type": "promptString",
+            "default": "/dev/cu.usbmodem14101"
+        }
+    ]
+}

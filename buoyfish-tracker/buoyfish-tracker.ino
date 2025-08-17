@@ -160,6 +160,15 @@ void setup()
 
 		g_data_rate = api.lorawan.dr.get();
 
+		// ABP Mode Adjustment by Jameson and robots on 8/16/25
+		// Disable confirmations in ABP mode due to RX timing window issues
+		if (!api.lorawan.njm.get()) 
+		{
+			g_confirmed_mode = false;
+			g_confirmed_retry = 0;
+			MYLOG("SETUP", "ABP mode detected - confirmations disabled");
+		}
+
 		// Setup the callbacks for joined and send finished
 		api.lorawan.registerRecvCallback(receiveCallback);
 		api.lorawan.registerSendCallback(sendCallback);
